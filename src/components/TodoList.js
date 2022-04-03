@@ -1,12 +1,14 @@
 import React from 'react';
 
-const TodoList = ({todo, setTodo, setEditTodo}) => {
+const TodoList = ({todos, setTodo, setEditTodo}) => {
+
+    console.log(todos);
 
     const handleComplete = (todo) => {
         setTodo(
-            todo.map((item) => {
+            todos.map((item) => {
                 if(item.id === todo.id) {
-                    return {...item, completed: !item.completed}
+                    return {...item, completed: !item.completed};
                 }
                 return item;
             })
@@ -14,17 +16,18 @@ const TodoList = ({todo, setTodo, setEditTodo}) => {
     };
 
     const handleEdit = ({id}) => {
-        const findTodo = todo.find((todo) => todo.id === id);
+        const findTodo = todos.find((todo) => todo.id === id);
         setEditTodo(findTodo);
     };
 
     const handleDelete = ({ id }) => {
-        setTodo(todo.filter((todo) => todo.id !== id));
+        const filteredTodos = todos.filter((todo) => todo.id !== id);
+        setTodo(filteredTodos);
     };
 
     return ( 
         <div>
-            {todo.map((todo) => (
+            {!!todos && !!todos.length && todos.map((todo) => (
                 <li className="list-item" key={todo.id}>
                     <input 
                         type="text" 

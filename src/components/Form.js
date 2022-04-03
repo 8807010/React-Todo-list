@@ -4,14 +4,14 @@ import {v4 as uuidv4} from "uuid";
 const Form = ({
     input,
     setInput,
-    todo,
+    todos,
     setTodo,
     editTodo,
     setEditTodo
 }) => {
 
     const updateTodo = (title, id, completed) => {
-        const newTodo = todo.map((todo) =>
+        const newTodo = todos.map((todo) =>
             todo.id === id ? {title, id, completed} : todo);
         setTodo(newTodo);
         setEditTodo("");
@@ -32,11 +32,20 @@ const Form = ({
     const onFormSubmit = (event) => {
         event.preventDefault();
         if (!editTodo) {
-            setTodo([...todo, {
-                id: uuidv4(),
-                title: input,
-                completed: false
-            }]);
+            if (todos) {
+                setTodo([...todos, {
+                    id: uuidv4(),
+                    title: input,
+                    completed: false
+                }]);
+            } else {
+                setTodo([{
+                    id: uuidv4(),
+                    title: input,
+                    completed: false
+                }])
+
+            }
             setInput("");
         } else {
             updateTodo(input, editTodo.id, editTodo.completed)

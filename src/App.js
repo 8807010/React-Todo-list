@@ -5,14 +5,16 @@ import TodoList from './components/TodoList';
 import "./App.scss";
 
 const App = () => {
-    const initialState = JSON.parse(localStorage.getItem("todo")) || [];
+    const initialState = JSON.parse(localStorage.getItem("todos")) || [];
     const [input, setInput] = useState("");
-    const [todo, setTodo] = useState(initialState);
+    const [todos, setTodo] = useState(initialState);
     const [editTodo, setEditTodo] = useState(null);
 
     useEffect(() => {
-        localStorage.setItem("todo", JSON.stringify(todo));
-    }, [todo]);
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
+
+    console.log(todos);
 
     return ( 
         <div className="container">
@@ -24,7 +26,7 @@ const App = () => {
                     <Form 
                         input={input}
                         setInput={setInput}
-                        todo={todo}
+                        todos={todos}
                         setTodo={setTodo}
                         editTodo={editTodo}
                         setEditTodo={setEditTodo}
@@ -32,7 +34,7 @@ const App = () => {
                 </div>
                 <div>
                     <TodoList 
-                        todo={todo}
+                        todos={todos}
                         setTodo={setTodo}
                         setEditTodo={setEditTodo}
                     />
